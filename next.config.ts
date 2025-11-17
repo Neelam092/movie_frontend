@@ -1,15 +1,17 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig ={
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
-  // swcMinify: true,
-  // Show more detailed errors
-  webpack: (config, { dev, isServer }) => {
+  experimental: {
+    turbo: false,
+  },
+
+  webpack: (config: import('webpack').Configuration, { dev }: { dev: boolean }) => {
     if (dev) {
-      config.optimization.minimize = false;
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      config.optimization && (config.optimization.minimize = false);
     }
     return config;
   },
-}
+};
 
-export default nextConfig;
+module.exports = nextConfig;
